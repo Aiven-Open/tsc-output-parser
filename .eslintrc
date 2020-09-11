@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@aivenio/eslint-config-aiven"
+  ],
+  "ignorePatterns": ["parser.ts", "dist/**/*"],
+  "rules": {
+    "no-console": "off"
+  }
+}

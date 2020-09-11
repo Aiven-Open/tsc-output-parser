@@ -1,0 +1,46 @@
+{
+  "name": "@aivenio/tsc-output-parser",
+  "version": "1.0.1",
+  "description": "Parses errors from tsc output to a structured JSON format.",
+  "bin": {
+    "tsc-output-parser": "dist/cli.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "src/**/*.ts"
+  ],
+  "main": "dist/parser.js",
+  "scripts": {
+    "test": "npm run peg && jest",
+    "peg": "pegjs --plugin ./node_modules/ts-pegjs -o src/parser.ts --cache src/tsc-grammar.pegjs",
+    "build": "npm run peg && npm run test && npm run tsc",
+    "tsc": "tsc -p tsconfig.dist.json",
+    "clean": "rm -r ./dist/* && rm src/parser.ts",
+    "eslint": "eslint --config .eslintrc \"src/**/*.ts\"",
+    "prettier:write": "prettier --config .prettierrc --write \"src/**/*.ts\"",
+    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.ts\""
+  },
+  "author": "Aiven",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "@aivenio/eslint-config-aiven": "^0.1.1",
+    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "jest": "^26.4.2",
+    "pegjs": "^0.10.0",
+    "prettier": "2.0.5",
+    "ts-node": "^9.0.0",
+    "ts-pegjs": "^0.2.7",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@typescript-eslint/parser": "^4.1.0",
+    "grammkit": "^0.7.1",
+    "ts-jest": "^26.3.0"
+  }
+}

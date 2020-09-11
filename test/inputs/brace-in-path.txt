@@ -1,0 +1,1 @@
+path/to/fil(e.ts(1,2): error TS0:abc

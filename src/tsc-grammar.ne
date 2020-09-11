@@ -1,0 +1,89 @@
+# NOTE! This is here as an example, not being used.
+# For some reason the grammar didn't work with Nearley, but almost direct
+# translation to PEG.js worked.
+#
+
+# Parses error messages from TypeScript compiler output
+# There's a VSCode Nearley extension to support syntax highlighting
+
+# Example output:
+# node_modules/connected-react-router/index.d.ts(4,42): error TS7016: Could not find a declaration file for module 'react-redux'. '/home/user/code/ui/node_modules/react-redux/lib/index.js' implicitly has an 'any' type.
+#   Try `npm install @types/react-redux` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-redux';`
+# node_modules/connected-react-router/index.d.ts(92,7): error TS2314: Generic type 'Reducer' requires 1 type argument(s).
+# node_modules/immutable/dist/immutable-nonambient.d.ts(187,20): error TS2430: Interface 'List<T>' incorrectly extends interface 'Indexed<T>'.
+#   Types of property 'concat' are incompatible.
+#     Type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => List<T | C>' is not assignable to type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => Indexed<T | C>'.
+#       Type 'List<T | C>' is not assignable to type 'Indexed<T | C>'.
+#         Types of property 'first' are incompatible.
+#           Type '() => T | C | undefined' is not assignable to type '<NSV>(notSetValue?: NSV | undefined) => T | C | NSV'.
+#             Type 'T | C | undefined' is not assignable to type 'T | C | NSV'.
+#               Type 'undefined' is not assignable to type 'T | C | NSV'.
+# src/actions.ts(691,20): error TS7006: Parameter 'error' implicitly has an 'any' type.
+# src/actions.ts(711,17): error TS7006: Parameter 'dispatch' implicitly has an 'any' type.
+
+
+Items -> "\n":* Item (Item):* "\n":* {% d => [d[1]].concat(d[2]) %}
+
+Item -> Path Cursor ":" _ TsError _ ":" Message {% d => ({
+  type: 'Item',
+  value: {
+    path: d[0],
+    cursor: d[1],
+    errorString: d[4],
+    message: d[7],
+  }
+}) %}
+
+Message -> TextLine "\n":* (MessageExtraLine "\n":*):* {% d => d.join('') %}
+
+MessageExtraLine -> MessageExtraLineStart TextLine {% d => `${d[0]}${d[1]}` %}
+
+# Two spaces (at least) to start the extra line
+MessageExtraLineStart -> "  " {% id %}
+
+TsError -> TsErrorType " TS" Integer {% d => ({
+  type: 'TsError',
+  value: {
+    type: d[0],
+    value: `TS${d[2]}`,
+  }
+}) %}
+
+TsErrorType -> "error" {% id %} | "warning" {% id %}
+
+Cursor -> "(" _ Integer _ "," _ Integer _ ")" {% d => ({
+  type: 'Cursor',
+  value: {
+    line: d[2],
+    col: d[6],
+  }
+}) %}
+
+# File path, for example "node_modules/connected-react-router/index.d.ts"
+Path -> [^\n\r(]:+ {% d => ({
+  type: 'Path',
+  value: d[0].join('')
+}) %}
+
+# Any single line of text with one of more line endings
+TextLine -> (AnyCharExceptNewLine):+ "\n" {% d => flatten(d).join('') %}
+
+AnyCharExceptNewLine -> [^\n\r]
+
+Integer -> [0-9]:+ {% d => parseInt(d[0].join(''), 10) %}
+
+# Whitespace. The important thing here is that the postprocessor
+# is a null-returning function. This is a memory efficiency trick.
+_ -> [\s]:*     {% function(d) {return null } %}
+
+
+@{%
+function flatten(d) {
+  return d.reduce(
+    (a, b) => {
+      return a.concat(b);
+    },
+    []
+  );
+};
+%}

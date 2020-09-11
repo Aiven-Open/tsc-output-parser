@@ -1,0 +1,4 @@
+path/to/file.ts(1,2): error TS0:abc
+
+
+path/to/file.ts(x,2): error TS0:abc
