@@ -1,0 +1,9 @@
+
+
+path(1,1): error TS0:abc
+  defg
+  hijk
+path(2,1): error TS1: testing
+  second line
+
+  third line
