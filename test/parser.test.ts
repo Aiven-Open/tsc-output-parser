@@ -12,7 +12,7 @@ const inputs = files.reduce((acc: any, fileName: string) => {
   };
 }, {})
 
-describe("tsc-parser", () => {
+describe("tsc-output-parser", () => {
   test("simplest", () => {
     const items = parse(inputs['simplest.txt']);
     assert.deepStrictEqual(items, [
