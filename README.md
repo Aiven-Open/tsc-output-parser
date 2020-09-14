@@ -33,7 +33,10 @@ to JSON:
           "errorString": "TS7006"
         }
       },
-      "message": " Parameter 'error' implicitly has an 'any' type.\n"
+      "message": {
+        "type": "Message",
+        "value": " Parameter 'error' implicitly has an 'any' type.\n"
+      }
     }
   }
 ]
