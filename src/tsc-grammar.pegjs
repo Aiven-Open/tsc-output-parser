@@ -31,7 +31,12 @@ Item = path:Path cursor:Cursor ":" _ tsError:TsError _ ":" message:Message {
   }
 }
 
-Message = line:TextLine extraLines:(MessageExtraLine)* { return `${line}${extraLines.join('')}` }
+Message = line:TextLine extraLines:(MessageExtraLine)* {
+  return {
+    type: 'Message',
+    value: `${line}${extraLines.join('')}`,
+  }
+}
 
 MessageExtraLine = indent:MessageExtraLineStart tail:TextLine { return `${indent}${tail}` }
 

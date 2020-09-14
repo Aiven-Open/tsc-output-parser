@@ -37,7 +37,10 @@ describe("tsc-parser", () => {
               errorString: 'TS0',
             }
           },
-          message: 'abc\n'
+          message: {
+            type: 'Message',
+            value: 'abc\n',
+          },
         }
       }
     ])
@@ -87,7 +90,10 @@ describe("tsc-parser", () => {
               errorString: 'TS0',
             }
           },
-          message: 'abc\n  defg\n  hijk\n'
+          message: {
+            type: 'Message',
+            value: 'abc\n  defg\n  hijk\n',
+          },
         }
       },
       {
@@ -111,7 +117,10 @@ describe("tsc-parser", () => {
               errorString: 'TS1',
             }
           },
-          message: ' testing\n  second line\n\n  third line\n'
+          message: {
+            type: 'Message',
+            value: ' testing\n  second line\n\n  third line\n',
+          },
         }
       }
     ])
@@ -141,7 +150,10 @@ describe("tsc-parser", () => {
               errorString: 'TS7006',
             }
           },
-          message: ` Parameter 'error' implicitly has an 'any' type.\n\n\n\n`
+          message: {
+            type: 'Message',
+            value: ` Parameter 'error' implicitly has an 'any' type.\n\n\n\n`,
+          },
         }
       },
       {
@@ -165,7 +177,10 @@ describe("tsc-parser", () => {
               errorString: 'TS7006',
             }
           },
-          message: ` Parameter 'dispatch' implicitly has an 'any' type.\n`
+          message: {
+            type: 'Message',
+            value: ` Parameter 'dispatch' implicitly has an 'any' type.\n`,
+          },
         }
       },
       {
@@ -189,10 +204,13 @@ describe("tsc-parser", () => {
               errorString: 'TS7016',
             }
           },
-          message: [
-            ` Could not find a declaration file for module 'react-redux'. '/home/user/code/ui/node_modules/react-redux/lib/index.js' implicitly has an 'any' type.`,
-            `  Try \`npm install @types/react-redux\` if it exists or add a new declaration (.d.ts) file containing \`declare module 'react-redux';\`\n\n`,
-          ].join('\n')
+          message: {
+            type: 'Message',
+            value: [
+              ` Could not find a declaration file for module 'react-redux'. '/home/user/code/ui/node_modules/react-redux/lib/index.js' implicitly has an 'any' type.`,
+              `  Try \`npm install @types/react-redux\` if it exists or add a new declaration (.d.ts) file containing \`declare module 'react-redux';\`\n\n`,
+            ].join('\n'),
+          }
         }
       },
       {
@@ -216,16 +234,19 @@ describe("tsc-parser", () => {
               errorString: 'TS2430',
             }
           },
-          message: [
-            ` Interface 'List<T>' incorrectly extends interface 'Indexed<T>'.`,
-            `  Types of property 'concat' are incompatible.`,
-            `    Type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => List<T | C>' is not assignable to type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => Indexed<T | C>'.`,
-            `      Type 'List<T | C>' is not assignable to type 'Indexed<T | C>'.`,
-            `        Types of property 'first' are incompatible.`,
-            `          Type '() => T | C | undefined' is not assignable to type '<NSV>(notSetValue?: NSV | undefined) => T | C | NSV'.`,
-            `            Type 'T | C | undefined' is not assignable to type 'T | C | NSV'.`,
-            `              Type 'undefined' is not assignable to type 'T | C | NSV'.\n`,
-          ].join('\n')
+          message: {
+            type: 'Message',
+            value: [
+              ` Interface 'List<T>' incorrectly extends interface 'Indexed<T>'.`,
+              `  Types of property 'concat' are incompatible.`,
+              `    Type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => List<T | C>' is not assignable to type '<C>(...valuesOrCollections: (C | Iterable<C>)[]) => Indexed<T | C>'.`,
+              `      Type 'List<T | C>' is not assignable to type 'Indexed<T | C>'.`,
+              `        Types of property 'first' are incompatible.`,
+              `          Type '() => T | C | undefined' is not assignable to type '<NSV>(notSetValue?: NSV | undefined) => T | C | NSV'.`,
+              `            Type 'T | C | undefined' is not assignable to type 'T | C | NSV'.`,
+              `              Type 'undefined' is not assignable to type 'T | C | NSV'.\n`,
+            ].join('\n'),
+          },
         }
       },
     ])
