@@ -21,6 +21,7 @@ Main = _ items:(Item)* _ { return items }
 
 Item = path:Path cursor:Cursor ":" _ tsError:TsError _ ":" message:Message {
   return {
+    // NOTE! If you change the types, remember to also change the parserTypes.ts
     type: 'Item',
     value: {
       path,
