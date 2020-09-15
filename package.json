@@ -13,9 +13,9 @@
   "main": "dist/index.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "npm run peg && jest",
+    "test": "npm run build",
     "peg": "pegjs --plugin ./node_modules/ts-pegjs -o src/parser.ts --cache src/tsc-grammar.pegjs",
-    "build": "npm run clean && npm run peg && npm run ttsc && npm run test",
+    "build": "npm run clean && npm run peg && npm run ttsc && jest",
     "ttsc": "ttsc -p tsconfig.dist.json",
     "clean": "rm -f ./dist/* && rm -f src/parser.ts",
     "eslint": "eslint --config .eslintrc \"src/**/*.ts\"",
