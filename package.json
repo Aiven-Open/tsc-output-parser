@@ -7,15 +7,17 @@
   },
   "files": [
     "dist/**/*.js",
+    "dist/**/*.d.ts",
     "src/**/*.ts"
   ],
-  "main": "dist/parser.js",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "npm run peg && jest",
+    "test": "npm run build",
     "peg": "pegjs --plugin ./node_modules/ts-pegjs -o src/parser.ts --cache src/tsc-grammar.pegjs",
-    "build": "npm run peg && npm run test && npm run tsc",
-    "tsc": "tsc -p tsconfig.dist.json",
-    "clean": "rm -r ./dist/* && rm src/parser.ts",
+    "build": "npm run clean && npm run peg && npm run ttsc && jest",
+    "ttsc": "ttsc -p tsconfig.dist.json",
+    "clean": "rm -f ./dist/* && rm -f src/parser.ts",
     "eslint": "eslint --config .eslintrc \"src/**/*.ts\"",
     "prettier:write": "prettier --config .prettierrc --write \"src/**/*.ts\"",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.ts\""
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@aivenio/eslint-config-aiven": "^0.1.1",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@zerollup/ts-transform-paths": "^1.7.18",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
@@ -36,6 +39,7 @@
     "prettier": "2.0.5",
     "ts-node": "^9.0.0",
     "ts-pegjs": "^0.2.7",
+    "ttypescript": "^1.5.12",
     "typescript": "^4.0.2"
   },
   "dependencies": {
