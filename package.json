@@ -11,7 +11,7 @@
     "src/**/*.ts"
   ],
   "main": "dist/index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "npm run build",
     "peg": "pegjs --plugin ./node_modules/ts-pegjs -o src/parser.ts --cache src/tsc-grammar.pegjs",
