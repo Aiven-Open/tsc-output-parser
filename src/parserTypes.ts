@@ -6,37 +6,37 @@
 
 // As a workaround, we expose the types here
 export interface GrammarPath {
-  type: 'Path',
-  value: string,
+  type: 'Path';
+  value: string;
 }
 
 export interface GrammarCursor {
-  type: 'Cursor',
+  type: 'Cursor';
   value: {
-    line: number,
-    col: number,
-  },
+    line: number;
+    col: number;
+  };
 }
 
 export interface GrammarTsError {
-  type: 'TsError',
+  type: 'TsError';
   value: {
-    type: 'error' | 'warning',
-    errorString: string,
-  },
+    type: 'error' | 'warning';
+    errorString: string;
+  };
 }
 
 export interface GrammarMessage {
-  type: 'Message',
-  value: string,
+  type: 'Message';
+  value: string;
 }
 
 export interface GrammarItem {
-  type: 'Item',
+  type: 'Item';
   value: {
-    path: GrammarPath,
-    cursor: GrammarCursor,
-    tsError: GrammarTsError,
-    message: GrammarMessage,
-  },
+    path: GrammarPath;
+    cursor: GrammarCursor;
+    tsError: GrammarTsError;
+    message: GrammarMessage;
+  };
 }
