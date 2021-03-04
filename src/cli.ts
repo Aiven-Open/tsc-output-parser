@@ -15,7 +15,15 @@ function streamToString(stream: NodeJS.ReadStream): Promise<string> {
   });
 }
 
+function testNew() {
+  console.log('testing');
+  const a = 1 + 1;
+  return a;
+}
+
 async function main() {
+  testNew();
+
   let text;
 
   if (process.argv.length < 3) {
