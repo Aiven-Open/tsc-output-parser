@@ -19,8 +19,8 @@
     "ttsc": "ttsc -p tsconfig.dist.json",
     "clean": "rm -f ./dist/* && rm -f src/parser.ts",
     "eslint": "npm run eslint:check",
-    "eslint:fix": "eslint --fix --config .eslintrc \"src/**/*.ts\"",
-    "eslint:check": "eslint --config .eslintrc \"src/**/*.ts\""
+    "eslint:fix": "eslint --fix --config .eslintrc \"{src,test}/**/*.ts\"",
+    "eslint:check": "eslint --config .eslintrc \"{src,test}/**/*.ts\""
   },
   "author": "Aiven",
   "license": "Apache 2.0",
