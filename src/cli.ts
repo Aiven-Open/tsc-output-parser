@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import util from 'util';
+
 import { parse } from 'src/parser';
 
 const readFileAsync = util.promisify(fs.readFile);
