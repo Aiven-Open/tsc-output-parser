@@ -1,6 +1,8 @@
-import fs from 'fs';
 import assert from 'assert';
+import fs from 'fs';
 import path from 'path';
+
+// eslint-disable-next-line no-restricted-imports
 import { parse, SyntaxError } from '../src/parser';
 
 const inputsDir = path.join(__dirname, 'inputs/');
@@ -10,10 +12,10 @@ const inputs = files.reduce((acc: any, fileName: string) => {
     ...acc,
     [fileName]: fs.readFileSync(path.join(inputsDir, fileName), { encoding: 'utf8' }),
   };
-}, {})
+}, {});
 
-describe("tsc-output-parser", () => {
-  test("simplest", () => {
+describe('tsc-output-parser', () => {
+  test('simplest', () => {
     const items = parse(inputs['simplest.txt']);
     assert.deepStrictEqual(items, [
       {
@@ -21,52 +23,52 @@ describe("tsc-output-parser", () => {
         value: {
           path: {
             type: 'Path',
-            value: 'path/to/file.ts'
+            value: 'path/to/file.ts',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 1,
-              col: 2
-            }
+              col: 2,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS0',
-            }
+            },
           },
           message: {
             type: 'Message',
             value: 'abc\n',
           },
-        }
-      }
-    ])
+        },
+      },
+    ]);
   });
 
-  test("brace-in-path", () => {
+  test('brace-in-path', () => {
     // This issue could probably be solved with better grammar
     // However '(' character in file path is rare and an edge case.
     // This unit test documents the flaw in the grammar.
     assert.throws(() => {
       parse(inputs['brace-in-path.txt']);
-    }, SyntaxError)
+    }, SyntaxError);
   });
 
-  test("cursor-line-not-number", () => {
+  test('cursor-line-not-number', () => {
     assert.throws(() => {
       parse(inputs['cursor-line-not-number.txt']);
-    }, SyntaxError)
+    }, SyntaxError);
   });
 
-  test("empty input", () => {
+  test('empty input', () => {
     assert.deepStrictEqual(parse(''), []);
     assert.deepStrictEqual(parse('  \n  \n   '), []);
   });
 
-  test("extra-newlines", () => {
+  test('extra-newlines', () => {
     const items = parse(inputs['extra-newlines.txt']);
     assert.deepStrictEqual(items, [
       {
@@ -74,59 +76,59 @@ describe("tsc-output-parser", () => {
         value: {
           path: {
             type: 'Path',
-            value: 'path'
+            value: 'path',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 1,
-              col: 1
-            }
+              col: 1,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS0',
-            }
+            },
           },
           message: {
             type: 'Message',
             value: 'abc\n  defg\n  hijk\n',
           },
-        }
+        },
       },
       {
         type: 'Item',
         value: {
           path: {
             type: 'Path',
-            value: 'path'
+            value: 'path',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 2,
-              col: 1
-            }
+              col: 1,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS1',
-            }
+            },
           },
           message: {
             type: 'Message',
             value: ' testing\n  second line\n\n  third line\n',
           },
-        }
-      }
-    ])
+        },
+      },
+    ]);
   });
 
-  test("real", () => {
+  test('real', () => {
     const items = parse(inputs['real.txt']);
     assert.deepStrictEqual(items, [
       {
@@ -134,75 +136,75 @@ describe("tsc-output-parser", () => {
         value: {
           path: {
             type: 'Path',
-            value: 'src/actions.ts'
+            value: 'src/actions.ts',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 691,
-              col: 20
-            }
+              col: 20,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS7006',
-            }
+            },
           },
           message: {
             type: 'Message',
             value: ` Parameter 'error' implicitly has an 'any' type.\n\n\n\n`,
           },
-        }
+        },
       },
       {
         type: 'Item',
         value: {
           path: {
             type: 'Path',
-            value: 'src/actions.ts'
+            value: 'src/actions.ts',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 711,
-              col: 17
-            }
+              col: 17,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS7006',
-            }
+            },
           },
           message: {
             type: 'Message',
             value: ` Parameter 'dispatch' implicitly has an 'any' type.\n`,
           },
-        }
+        },
       },
       {
         type: 'Item',
         value: {
           path: {
             type: 'Path',
-            value: 'node_modules/connected-react-router/index.d.ts'
+            value: 'node_modules/connected-react-router/index.d.ts',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 4,
-              col: 42
-            }
+              col: 42,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS7016',
-            }
+            },
           },
           message: {
             type: 'Message',
@@ -210,29 +212,29 @@ describe("tsc-output-parser", () => {
               ` Could not find a declaration file for module 'react-redux'. '/home/user/code/ui/node_modules/react-redux/lib/index.js' implicitly has an 'any' type.`,
               `  Try \`npm install @types/react-redux\` if it exists or add a new declaration (.d.ts) file containing \`declare module 'react-redux';\`\n\n`,
             ].join('\n'),
-          }
-        }
+          },
+        },
       },
       {
         type: 'Item',
         value: {
           path: {
             type: 'Path',
-            value: 'node_modules/immutable/dist/immutable-nonambient.d.ts'
+            value: 'node_modules/immutable/dist/immutable-nonambient.d.ts',
           },
           cursor: {
             type: 'Cursor',
             value: {
               line: 187,
-              col: 20
-            }
+              col: 20,
+            },
           },
           tsError: {
             type: 'TsError',
             value: {
               type: 'error',
               errorString: 'TS2430',
-            }
+            },
           },
           message: {
             type: 'Message',
@@ -247,8 +249,8 @@ describe("tsc-output-parser", () => {
               `              Type 'undefined' is not assignable to type 'T | C | NSV'.\n`,
             ].join('\n'),
           },
-        }
+        },
       },
-    ])
+    ]);
   });
 });

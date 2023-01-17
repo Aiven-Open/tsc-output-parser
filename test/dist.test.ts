@@ -1,4 +1,6 @@
 import assert from 'assert';
+
+// eslint-disable-next-line no-restricted-imports
 import * as tscOutputParser from '../dist';
 
 // `tscOutputParser` is now the exactly as what is exposed by the built distributable

@@ -19,28 +19,30 @@
     "ttsc": "ttsc -p tsconfig.dist.json",
     "clean": "rm -f ./dist/* && rm -f src/parser.ts",
     "eslint": "npm run eslint:check",
-    "eslint:fix": "eslint --config .eslintrc \"src/**/*.ts\"",
-    "eslint:check": "eslint --config .eslintrc \"src/**/*.ts\""
+    "eslint:fix": "eslint --fix --config .eslintrc \"{src,test}/**/*.ts\"",
+    "eslint:check": "eslint --config .eslintrc \"{src,test}/**/*.ts\""
   },
   "author": "Aiven",
   "license": "Apache 2.0",
   "devDependencies": {
-    "@aivenio/eslint-config-aiven": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
+    "@aivenio/eslint-config-aiven": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "@zerollup/ts-transform-paths": "^1.7.18",
-    "eslint": "^7.4.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-sonarjs": "^0.18.0",
+    "grammkit": "^0.7.1",
     "jest": "^26.4.2",
     "pegjs": "^0.10.0",
     "prettier": "2.0.5",
+    "ts-jest": "^26.3.0",
     "ts-node": "^9.0.0",
     "ts-pegjs": "^0.2.7",
-    "ttypescript": "^1.5.12",
-    "typescript": "^4.0.2",
-    "@typescript-eslint/parser": "^4.1.0",
-    "grammkit": "^0.7.1",
-    "ts-jest": "^26.3.0"
+    "ttypescript": "^1.5.15",
+    "typescript": "^4.0.2"
   }
 }
