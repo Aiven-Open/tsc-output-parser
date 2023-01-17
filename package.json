@@ -19,7 +19,7 @@
     "ttsc": "ttsc -p tsconfig.dist.json",
     "clean": "rm -f ./dist/* && rm -f src/parser.ts",
     "eslint": "npm run eslint:check",
-    "eslint:fix": "eslint --config .eslintrc \"src/**/*.ts\"",
+    "eslint:fix": "eslint --fix --config .eslintrc \"src/**/*.ts\"",
     "eslint:check": "eslint --config .eslintrc \"src/**/*.ts\""
   },
   "author": "Aiven",
