@@ -24,6 +24,10 @@
   },
   "author": "Aiven",
   "license": "Apache 2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aiven/tsc-output-parser"
+  },
   "devDependencies": {
     "@aivenio/eslint-config-aiven": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
